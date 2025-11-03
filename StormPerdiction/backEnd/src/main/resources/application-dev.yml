@@ -1,0 +1,99 @@
+python:
+  C:/Users/22171/.conda/envs/Env1/python.exe
+data:
+  D:/1study/Work/2023_12_22_Storm/StormPerdiction/data
+dataprocess:
+  D:/1study/Work/2023_12_22_Storm/StormPerdiction/data/DataProcess
+webdriver:
+  "D:/1tools/chromedriver/chromedriver.exe"
+
+spring:
+  datasource:
+    level:
+      jdbc-url: jdbc:sqlite:${dataprocess}/Forcasting.db
+      driver-class-name: org.sqlite.JDBC
+    nc:
+      jdbc-url: jdbc:sqlite:${dataprocess}/NC.db
+      driver-class-name: org.sqlite.JDBC
+    meteorology:
+      jdbc-url: jdbc:sqlite:${dataprocess}/Clawing/Meteorology.db
+      driver-class-name: org.sqlite.JDBC
+
+stations:
+  ${dataprocess}/station_service.json
+Typhoon:
+  ${dataprocess}/Clawing/typhoon.json
+
+updateData:
+  ${dataprocess}/UpdateData.py
+updateManData:
+  ${dataprocess}/UpdateManData.py
+
+clawingCloud:
+  ${dataprocess}/Clawing/Cloud.py
+clawingRadar:
+  ${dataprocess}/Clawing/Radar.py
+clawingRainfall:
+  ${dataprocess}/Clawing/Rainfall.py
+clawingRainfallpre:
+  ${dataprocess}/Clawing/Rainfall_pre.py
+clawingTyphoon:
+  ${dataprocess}/Clawing/Typhoon.py
+deleteClawingData:
+  ${dataprocess}/Clawing/DeleteData.py
+
+meteorology:
+  file:
+    cloud:
+      "${data}/qixiangchanpin/weixingyuntu"
+    radar:
+      "${data}/qixiangchanpin/leidapintu"
+    rainfall:
+      "${data}/qixiangchanpin/jiangshuiliangshikuang"
+    rainfallpre:
+      "${data}/qixiangchanpin/jiangshuiliangyubao"
+  db:
+    "${dataprocess}/Clawing/Meteorology.db"
+
+
+DataProcessLog:
+  ${dataprocess}/logfile.log
+
+FieldGenerating:
+  ${dataprocess}/FieldProcess/FieldGenerating.py
+FieldPath:
+  "${data}/Field"
+
+AddFieldGenerating:
+  ${dataprocess}/FieldProcess/addWaterScripts.py
+AddField:
+  "${data}/Field/Add/out"
+AddFieldMask:
+  "${dataprocess}/FieldProcess/mask/mask.shp"
+
+WaterLevelCalculating:
+  ${dataprocess}/FieldProcess/waterLevelCalculating.py
+
+FlowField:
+  "${data}/Field/Flow"
+WindField:
+  "${data}/Field/Wind"
+WaterLevel:
+  "${data}/Field/WaterLevel"
+WaterLevelPoints:
+  "${dataprocess}/FieldProcess/points.json"
+
+ScriptName:
+  "run.sh"
+DirectoryPath:
+  "D:/1study/Work/2023_12_22_Storm/StormPerdiction/data"
+ForecastDataPath:
+  "${data}/forecastData"
+ManuelUpdating:
+  ${dataprocess}/UpdateDataV2_man.py
+
+TyphoonUrl:
+  https://typhoon.slt.zj.gov.cn/
+
+LocalMap:
+  http://127.0.0.1:3000
