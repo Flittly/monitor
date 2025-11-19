@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nnu.edu.back.dao.sensor.ZhuoduyiDataMapper">
+    <resultMap id="ZhuoduyiData" type="nnu.edu.back.pojo.SensorZhuoduyi">
+        <id property="id" column="id"/>
+        <result property="serialNumber" column="serial_number"/>
+        <result property="model" column="model"/>
+        <result property="internalVoltage" column="internal_voltage"/>
+        <result property="externalVoltage" column="external_voltage"/>
+        <result property="temperature" column="temperature"/>
+        <result property="pressure" column="pressure"/>
+        <result property="turbidity" column="turbidity"/>
+        <result property="depth" column="depth"/>
+        <result property="ssc" column="ssc"/>
+        <result property="timestamp" column="timestamp" typeHandler="nnu.edu.back.common.utils.CustomDateTypeHandler"/>
+    </resultMap>
+
+    <select id="getZhuoduyiDataByTimeRange" resultType="nnu.edu.back.pojo.SensorZhuoduyi">
+        SELECT
+            id,
+            serial_number as serialNumber,
+            model,
+            internal_voltage as internalVoltage,
+            external_voltage as externalVoltage,
+            temperature,
+            pressure,
+            turbidity,
+            depth,
+            ssc,
+            timestamp
+        FROM zhuoduyi_data
+        WHERE timestamp &gt;= #{startTime}
+          AND timestamp &lt;= #{endTime}
+    </select>
+
+    <select id="getAllZhuoduyiData" resultMap = "ZhuoduyiData">
+        SELECT * FROM zhuoduyi_data
+    </select>
+</mapper>

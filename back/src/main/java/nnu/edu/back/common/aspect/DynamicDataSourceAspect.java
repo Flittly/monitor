@@ -96,6 +96,12 @@ public class DynamicDataSourceAspect {
         }
     }
 
+    @Before("execution(* nnu.edu.back.dao.sensor.*.*(..))")
+    public void switchSensorDataSource() {
+        if (!DataSourceContextHolder.getDataSourceKey().equals("sensor")) {
+            DataSourceContextHolder.setDataSourceKey("sensor");
+        }
+    }
 
     @Before("execution(* nnu.edu.back.dao.main.*.*(..))")
     public void restoreDataSource() {

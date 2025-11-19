@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nnu.edu.back.dao.sensor.ChaoweiyiDataMapper">
+    <resultMap id="ChaoweiyiData" type="nnu.edu.back.pojo.SensorChaoweiyi">
+        <id property="id" column="id"/>
+        <result property="deviceId" column="device_id"/>
+        <result property="typeId" column="type_id"/>
+        <result property="liquidLevel" column="liquid_level"/>
+        <result property="temperature" column="temperature"/>
+        <result property="deviceTimestamp" column="device_timestamp" typeHandler="nnu.edu.back.common.utils.CustomDateTypeHandler"/>
+        <result property="createdAt" column="created_at" typeHandler="nnu.edu.back.common.utils.CustomDateTypeHandler"/>
+    </resultMap>
+    <select id="getChaoweiyiDataByStationAndTime" resultMap="ChaoweiyiData">
+        SELECT 
+            id,
+            device_id as deviceId,
+            type_id as typeId,
+            liquid_level as liquidLevel,
+            temperature,
+            device_timestamp as deviceTimestamp,
+            created_at as createdAt
+        FROM chaoweiyi_data
+        WHERE device_id = #{station}
+          AND device_timestamp &gt;= #{startTime}
+          AND device_timestamp &lt;= #{endTime}
+    </select>
+
+    <select id="getAllChaoweiyiData" resultMap="ChaoweiyiData">
+        SELECT *
+        FROM chaoweiyi_data
+    </select>
+</mapper>

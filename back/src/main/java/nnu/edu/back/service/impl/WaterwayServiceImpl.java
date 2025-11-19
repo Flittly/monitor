@@ -205,6 +205,7 @@ public class WaterwayServiceImpl implements WaterwayService {
         } else {
             throw new MyException(ResultEnum.DEFAULT_EXCEPTION);
         }
+        System.out.println("1111111111111");
 
         try {
             String url = waterLevelAddress + "/" + prefix + "/getInfoByStationAndTime/" + station + "/" + startTime + "/" + endTime;
@@ -213,6 +214,7 @@ public class WaterwayServiceImpl implements WaterwayService {
 //            HttpEntity requestEntity = new HttpEntity(new HttpHeaders());
 //            JSONObject res = InternetUtil.httpHandle(url, requestEntity, JSONObject.class, "get");
             JSONObject res = InternetUtil.GetRealData(url);
+            System.out.println(url);
             return res.getJSONArray("data");
         } catch (Exception e) {
             log.error(e.getMessage());

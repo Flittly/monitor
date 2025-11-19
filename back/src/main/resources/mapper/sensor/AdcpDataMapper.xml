@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nnu.edu.back.dao.sensor.AdcpDataMapper">
+    <resultMap id="AdcpData" type="nnu.edu.back.pojo.SensorAdcp">
+        <id property="id" column="id"/>
+        <result property="deviceTimestamp" column="timestamp" typeHandler="nnu.edu.back.common.utils.CustomDateTypeHandler"/>
+        <result property="headerData" column="header_data"/>
+        <result property="fixedLeader" column="fixed_leader"/>
+        <result property="variableLeader" column="variable_leader"/>
+        <result property="velocityData" column="velocity_data"/>
+        <result property="correlationData" column="correlation_data"/>
+        <result property="echoIntensity" column="echo_intensity"/>
+        <result property="percentGood" column="percent_good"/>
+        <result property="statusData" column="status_data"/>
+        <result property="bottomTrack" column="bottom_track"/>
+        <result property="ambientSound" column="ambient_sound"/>
+        <result property="ismData" column="ism_data"/>
+        <result property="checksum" column="checksum"/>
+    </resultMap>
+
+    <select id="getAdcpDataByTimeRange" resultMap="AdcpData">
+        SELECT *
+        FROM adcp_data
+        WHERE timestamp &gt;= #{startTime}
+          AND timestamp &lt;= #{endTime}
+    </select>
+
+    <select id="getAllAdcpData" resultMap="AdcpData">
+        SELECT * FROM adcp_data
+    </select>
+
+</mapper>

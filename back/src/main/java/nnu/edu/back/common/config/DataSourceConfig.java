@@ -52,6 +52,10 @@ public class DataSourceConfig {
     @ConfigurationProperties("spring.datasource.map")
     public DataSource mapSource() { return DataSourceBuilder.create().build(); }
 
+    @Bean("sensorSource")
+    @ConfigurationProperties("spring.datasource.sensor")
+    public DataSource sensorSource() { return DataSourceBuilder.create().build(); }
+
     /**
      * 自定义动态数据源
      *
@@ -66,6 +70,7 @@ public class DataSourceConfig {
         dataSourceMap.put("waterway", waterwaySource());
         dataSourceMap.put("ship", shipSource());
         dataSourceMap.put("map", mapSource());
+        dataSourceMap.put("sensor", sensorSource());
 
         // 默认数据源
         dynamicDataSource.setDefaultDataSource(defaultSource());
@@ -83,6 +88,8 @@ public class DataSourceConfig {
         // 开启驼峰转下划线设置
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
         configuration.setMapUnderscoreToCamelCase(true);
+        // 注册自定义类型处理器
+        configuration.getTypeHandlerRegistry().register(nnu.edu.back.common.utils.CustomDateTypeHandler.class);
         sessionFactory.setConfiguration(configuration);
         // 实体、Mapper类映射
 //        sessionFactory.setTypeAliasesPackage(typeAliasesPackage);
